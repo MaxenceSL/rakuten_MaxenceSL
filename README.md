@@ -1,73 +1,51 @@
-# React + TypeScript + Vite
+# Rakuten Product Detail Page - Coding Assignment
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+  ## Goals
+  This project was completed as part of the technical assessment for the Frontend Developer Intern position within the Visitor team at Rakuten. The objective was to design a functional, aesthetically pleasing, and performing product detail page using the Rakuten API.
 
-Currently, two official plugins are available:
+  ## Tech Stack
+  + React with TypeScript for robust and type-safe development.
+  + Material UI (MUI) for a modern, responsive, and accessible user interface.
+  + TanStack Query (React Query) for efficient server-state management, caching, and handling loading/error states.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+  ## Implemented Features
+  + Dynamic Data Fetching: Integration with the Rakuten API to display real-time product information.
+  + Comprehensive Product Display: Handled product name, pricing (including discount logic), descriptions, ratings, and breadcrumbs.
+  + User Experience (UX):
+    + Loading states handled via spinners.
+    + Comprehensive Error Handling for API failures or missing data.
+    + 100% Responsive Design optimized for Mobile, Tablet, and Desktop.
 
-## React Compiler
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# Getting Started
+Follow these steps to ship the project locally:
 
-## Expanding the ESLint configuration
+  ## 1. Clone the repository
+  `bash
+  git clone <YOUR_REPOSITORY_URL>
+  cd <YOUR_PROJECT_NAME>
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+  ## 2. Install dependencies
+  Make sure you have pnpm installed.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+  ## Run the development server
+  The application will be available at http://localhost:5173.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+# Development Notes
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+  ## Product Selection & Switching
+  To keep the demonstration focused on the UI and data fetching logic, the product ID is managed via a constant. 
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+  To test the page with the different product IDs provided in the assignment (Mattress, Phone, Gaming CD, or Monitor), you only need to change one line :
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+  1. Open `src/components/ProductDetail/ProductDetail.tsx`.
+  2. Update the `CURRENT_PRODUCT_ID` constant at line 22:
+
+  ```typescript
+  // ProductDetail.tsx
+  // IDs disponibles : Mattress: 11084451963 / Phone: 7758205598 / Gaming: 13060247469 / Monitor: 10735101964
+  const CURRENT_PRODUCT_ID = '13060247469'; // Replace with any other ID from above
+
+
+

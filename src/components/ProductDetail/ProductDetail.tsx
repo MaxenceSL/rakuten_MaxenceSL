@@ -13,39 +13,26 @@ import {
 import parse from 'html-react-parser';
 import CancelIcon from '@mui/icons-material/Cancel';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { useEffect, useState } from 'react';
 import axios from 'axios';
 import type { IProducts } from '../../@types/products';
 import SliderImg from '../SliderImg/SliderImg';
+import { useQuery } from '@tanstack/react-query';
+
+// IDs disponibles : Mattress: 11084451963 / Phone: 7758205598 / Gaming: 13060247469 / Monitor: 10735101964
+const CURRENT_PRODUCT_ID = '10735101964';
 
 function ProductDetail() {
-    const [errorMessage, setErrorMessage] = useState('');
-    const [isLoading, setIsLoading] = useState(true);
-    const [oneProduct, setOneProduct] = useState<IProducts | null>(null);
-
-    // console.log('affichage dataProduit'+oneProduct?.data.headline);
-
-    const getOneProduct = async () => {
-        setErrorMessage('');
-        try {
-            const response = await axios.get(`https://api-rakuten-vis.koyeb.app/product/13060247469`);
-            setOneProduct(response.data);
-            // console.log(response.data);
-
-        } catch (e) {
-            setErrorMessage('Erreur de fetch du produit. Merci de réessayer plus tard');
-            console.error(e);
-        }
-        setIsLoading(false);
-    };
-
-    useEffect(() => {
-        getOneProduct();
-    }, []);
+    const { data: oneProduct, isLoading, isError } = useQuery<IProducts>({
+        queryKey: ['product', CURRENT_PRODUCT_ID],
+        queryFn: async () => {
+            const response = await axios.get(`https://api-rakuten-vis.koyeb.app/product/${CURRENT_PRODUCT_ID}`);
+            return response.data;
+        },
+    });
 
 
     //gestion d'erreur
-    if (errorMessage) {
+    if (isError) {
         return (
             <Box
                 sx={{
@@ -55,7 +42,6 @@ function ProductDetail() {
                     margin: '2rem auto',
                 }}
             >
-                {/* L'icône demandée */}
                 <CancelIcon sx={{ fontSize: 50, color: '#BF0000' }} />
 
                 <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#BF0000', }}>
@@ -63,7 +49,7 @@ function ProductDetail() {
                 </Typography>
 
                 <Typography variant="body1" sx={{ color: 'white', }}>
-                    {errorMessage}
+                    Erreur de fetch du produit. Merci de réessayer plus tard
                 </Typography>
             </Box>
         );
@@ -125,11 +111,13 @@ function ProductDetail() {
             </Breadcrumbs>
 
             <Box sx={{ display: 'flex', gap: 4, flexDirection: { xs: 'column', md: 'row' } }}>
-                <SliderImg images={allImages} />
+                <Box sx={{ width: { xs: '100%', md: '400px' }, flexShrink: 0 }}>
+                    <SliderImg images={allImages} />
+                </Box>
 
-                <Box>
+                <Box sx={{ flex: 1 }}>
                     <Typography variant="h4" component="h1" gutterBottom>
-                        {title} <Typography component="span" variant="h4" color="primary">{brand}</Typography>
+                        {title} <Typography component="span" variant="h4" color="primary" sx={{ ml: 1 }}>{brand}</Typography>
                     </Typography>
 
                     {totalReviews > 0 ? (
