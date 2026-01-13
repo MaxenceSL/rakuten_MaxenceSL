@@ -16,6 +16,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import type { IProducts } from '../../@types/products';
+import SliderImg from '../SliderImg/SliderImg';
 
 function ProductDetail() {
     const [errorMessage, setErrorMessage] = useState('');
@@ -27,7 +28,7 @@ function ProductDetail() {
     const getOneProduct = async () => {
         setErrorMessage('');
         try {
-            const response = await axios.get(`https://api-rakuten-vis.koyeb.app/product/10735101964`);
+            const response = await axios.get(`https://api-rakuten-vis.koyeb.app/product/13060247469`);
             setOneProduct(response.data);
             // console.log(response.data);
 
@@ -87,7 +88,7 @@ function ProductDetail() {
     const title = product.headline;
     const brand = product.contributor.caption;
     const mainImage = product.imagesUrls[0];
-    // const allImages = product.imagesUrls;
+    const allImages = product.imagesUrls;
     const price = product.summaryNewBestPrice;
     const ratingScore = product.globalRating.score;
     const totalReviews = product.globalRating.nbReviews;
@@ -124,12 +125,7 @@ function ProductDetail() {
             </Breadcrumbs>
 
             <Box sx={{ display: 'flex', gap: 4, flexDirection: { xs: 'column', md: 'row' } }}>
-                <Box
-                    component="img"
-                    sx={{ width: { xs: '100%', md: 300 }, borderRadius: 2 }}
-                    src={mainImage}
-                    alt="Samsung Galaxy Watch"
-                />
+                <SliderImg images={allImages} />
 
                 <Box>
                     <Typography variant="h4" component="h1" gutterBottom>
