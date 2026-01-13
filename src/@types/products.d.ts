@@ -9,9 +9,7 @@ export interface IProducts {
         };
 
         // Prix
-        adverts: {
-            salePrice: number;
-        }[];
+        summaryNewBestPrice: string;
 
         //fil d'arianne
         breadcrumbs: {
@@ -41,9 +39,9 @@ export interface IProducts {
         imagesUrls: string[];
 
         //description du produit
-        description: string;    // Caractéristiques (Editeur, Sortie...)
-        edito: string;          // Long texte de présentation / Synopsis
-        specifications: {       // Détails techniques (Support, Audio...)
+        description: string;    
+        edito: string;          
+        specifications: {      
             sections: {
                 entry: {
                     title: string;
