@@ -7,15 +7,59 @@ import {
     Link,
     Stack,
     Chip,
-    Divider
+    Divider,
+    CircularProgress
 } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import type { IProducts } from '../../@types/products';
 
 function ProductDetail() {
-    
+    const [errorMessage, setErrorMessage] = useState('');
+    const [isLoading, setIsLoading] = useState(true);
+    const [oneProduct, setOneProduct] = useState<IProducts | null>(null);
+
+    console.log('affichage dataProduit'+oneProduct?.data.headline);
+
+    const getOneProduct = async () => {
+        setErrorMessage('');
+        try {
+            const response = await axios.get(`https://api-rakuten-vis.koyeb.app/product/7758205598`);
+            setOneProduct(response.data);
+            // console.log(response.data);
+            
+        } catch (e) {
+            setErrorMessage('Erreur de fetch du produit');
+            console.error(e);
+        }
+        setIsLoading(false);
+    };
+
+    useEffect(() => {
+        getOneProduct();
+    }, []);
+
+
+    //gestion d'erreur
+    if (errorMessage) {
+        return <Typography color="error" textAlign="center">{errorMessage}</Typography>;
+    }
+
+    //gestion page chargement
+    if (isLoading) {
+        return (
+            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '50vh' }}>
+                <CircularProgress color="error" size={60} />
+            </Box>
+        );
+    }
+
+    //affichage page produit
+    if (!oneProduct) return null;
+
     return (
         <Box sx={{ p: 3, maxWidth: 800, margin: '0 auto' }}>
-
             <Breadcrumbs aria-label="breadcrumb" sx={{ mb: 2 }}>
                 <Link underline="hover" color="#999999" sx={{ fontSize: '0.625rem' }} href="/">...</Link>
                 <Link underline="hover" color="#999999" sx={{ fontSize: '0.625rem' }} href="/">Téléphone Google</Link>
