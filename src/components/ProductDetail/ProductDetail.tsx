@@ -10,9 +10,9 @@ import {
     Divider
 } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { Padding } from '@mui/icons-material';
 
 function ProductDetail() {
+    
     return (
         <Box sx={{ p: 3, maxWidth: 800, margin: '0 auto' }}>
 
