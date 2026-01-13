@@ -87,7 +87,7 @@ function ProductDetail() {
     const breadcrumbs = product.breadcrumbs;
     const title = product.headline;
     const brand = product.contributor.caption;
-    const mainImage = product.imagesUrls[0];
+    // const mainImage = product.imagesUrls[0];
     const allImages = product.imagesUrls;
     const price = product.summaryNewBestPrice;
     const ratingScore = product.globalRating.score;
